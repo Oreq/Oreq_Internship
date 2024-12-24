@@ -188,8 +188,9 @@ const login = async (req, res, next) => {
         }
 
         const foundUserEmail = foundUser.user.email;
-        const foundUserId = foundUser.userId;
-
+        const foundUserId = foundUser._id;
+        console.log("found " + foundUser._id)
+        
         const accessToken = jwt.sign(
           {
             userId: foundUserId,
@@ -260,7 +261,19 @@ const login = async (req, res, next) => {
             { $set: { loggedInDevices: loggedInDevices } }
           );
         }
-
+        res.cookie('accessToken', accessToken, {
+          httpOnly: true,
+          //secure: process.env.NODE_ENV === 'production',
+          secure: false,
+          maxAge: process.env.ACCESS_TOKEN_EXPIRES_MS || 3600000, // 1 ชั่วโมง
+        });
+        
+        res.cookie('refreshToken', refreshToken, {
+          httpOnly: true,
+          //secure: process.env.NODE_ENV === 'production',
+          secure: false,
+          maxAge: process.env.REFRESH_TOKEN_EXPIRES_MS || 604800000, // 7 วัน
+        });
         res.status(200).send({
           status: "success",
           message: "Successfully Login",
@@ -278,12 +291,12 @@ const login = async (req, res, next) => {
             },
             imageURL: foundUser.user.imageURL,
             tokens: {
-              accessToken: accessToken,
-              refreshToken: refreshToken,
               refreshTokenOTP: refreshTokenOTP,
             },
           },
         });
+        
+
       } else {
         console.log("login error");
         return res

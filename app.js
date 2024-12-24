@@ -9,6 +9,7 @@ const cors = require("cors");
 const passport = require("passport");
 const sessions = require("express-session");
 const { RedisStore } = require("connect-redis");
+const { readdirSync } = require('fs')
 
 //? Databases 3
 const connectMongoDB = require("./modules/database/mongodb");
@@ -125,8 +126,13 @@ io.on("connection", (socket) => {
   });
 });
 
+// V1 Endpoints Product
+readdirSync('./routes/v1/newroutes').map((r)=> app.use("/api/v1", require('./routes/v1/newroutes/'+r)))
+
+
+
 //! V1 Endpoints
-//? Index Endpoints
+//? Index Endpoints Old
 const v1IndexRouter = require("./routes/v1/indexRoutes");
 app.use("/api/v1", v1IndexRouter);
 
