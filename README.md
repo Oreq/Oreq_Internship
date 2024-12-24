@@ -7,18 +7,12 @@
 6. สร้าง schema Order และสร้าง CRUD ของ Order สำเร็จ โดยสามารถ สร้าง ลบ แก้ไข เรียกดู order ทั้งหมด เรียกดู order จาก user และ เรียกดู order จากรหัส order การสร้าง order จะต้อง login เพื่อได้รับ token ก่อน สร้าง order เท่านั้น ผู้ทำได้เขียน middleware เพื่อ verifytoken ขึ้นมาใหม่ไว้สำหรับการทดสอบในโปรเจคนี้เรียบร้อย
 
 # โค้ดและไฟล์ที่สร้าง
-1.ผู้ทำได้สร้างโฟลเดอร์ขึ้นใหม่ใน routes/v1 โดยเพิ่ม โฟลเดอร์เป็น newroutes ในโฟลเดอร์มีไฟล์ orderRoutes.js และ productRoutes.js เพื่อจัดเก็บ endpoint ของ order และ product
-
-2.ในไฟล์ app.js ผู้ทำได้ใช้ readdirSync จาก 'fs' เพื่อจัดการกับการอ่านไฟล์ และได้เขียน endpoint ขึ้นใหม่เป็น  ```readdirSync('./routes/v1/newroutes').map((r)=> app.use("/api/v1", require('./routes/v1/newroutes/'+r)))``` ซึ่งจะทำการ loop อ่านไฟล์ ทั้งหมดใน folder ของ newroutes และ สร้าง endpoint ขึ้น โดยจะช่วยสร้างความยืดหยุ่นและไม่เกิดความซ้ำซ้อนในการเขียน
-
-3.ผู้ทำได้สร้าง middlewares ขึ้นใน โฟลเดอร์ middleware ชื่อไฟล์ verifyaccess.js เพื่อมาเทสเกี่ยวกับการ ตรวจสอบ token ซึ่งทำขึ้นมาเพื่อใช้ทดสอบกับโปรเจคนี้เท่านั้น ผู้ทำทราบดีว่าหากนำไปใช้ในงานจริง อาจจะยังไม่เหมาะสมเท่าที่ควร
-
+1. ผู้ทำได้สร้างโฟลเดอร์ขึ้นใหม่ใน routes/v1 โดยเพิ่ม โฟลเดอร์เป็น newroutes ในโฟลเดอร์มีไฟล์ orderRoutes.js และ productRoutes.js เพื่อจัดเก็บ endpoint ของ order และ product
+2. ในไฟล์ app.js ผู้ทำได้ใช้ readdirSync จาก 'fs' เพื่อจัดการกับการอ่านไฟล์ และได้เขียน endpoint ขึ้นใหม่เป็น  ```readdirSync('./routes/v1/newroutes').map((r)=> app.use("/api/v1", require('./routes/v1/newroutes/'+r)))``` ซึ่งจะทำการ loop อ่านไฟล์ ทั้งหมดใน folder ของ newroutes และ สร้าง endpoint ขึ้น โดยจะช่วยสร้างความยืดหยุ่นและไม่เกิดความซ้ำซ้อนในการเขียน
+3. ผู้ทำได้สร้าง middlewares ขึ้นใน โฟลเดอร์ middleware ชื่อไฟล์ verifyaccess.js เพื่อมาเทสเกี่ยวกับการ ตรวจสอบ token ซึ่งทำขึ้นมาเพื่อใช้ทดสอบกับโปรเจคนี้เท่านั้น ผู้ทำทราบดีว่าหากนำไปใช้ในงานจริง อาจจะยังไม่เหมาะสมเท่าที่ควร
 4. ผู้ทำได้สร้างไฟล์ productControllers.js และ orderControllers.js เพื่อจัดการเกี่ยวกับ Product และ Order ในระบบ CRUD
-
 5. ในไฟล์ authControllers.js ฟังก์ชัน login ผู้ทำได้แก้ไขโค้ดในส่วนของ '''const foundUserId = ```foundUser.userId``` เป็น ```foundUser._id``` เนื่องจาก userId เป็น null ผู้ทำจึงขอแก้ไข เพื่อทดสอบ หากผิดพลาดประการใดขออภัยมา ณ ที่นี้ด้วย
 
-
--------------------------------------------------------------------------
 
 # Jaidee-POS-Backend
 
